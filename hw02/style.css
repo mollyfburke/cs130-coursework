@@ -1,0 +1,322 @@
+body {
+    font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    color: #fff;
+}
+a, a:hover, a:visited, a:active { 
+    color: #fff;
+    text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/**********/
+/* Layout */
+/**********/
+aside, footer, header, nav, section, article {
+    display: flex;
+    flex-direction: column;
+}
+body {
+    overflow: hidden;
+    margin: 0px;
+    display: grid;
+    grid-template-columns: 250px auto;
+    grid-template-rows: auto 100px;
+    grid-template-areas:
+       "left main"
+       "bottom bottom";
+    height: 100vh;
+}
+aside {
+    background-color: #000;
+    grid-area: left;
+}
+header {
+    background: #111;
+    position: fixed;
+    width: calc(100vw - 250px);
+    left: 250px;
+}
+
+main {
+    background: #111;
+    grid-area: main;
+    min-height: calc(350px);
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    z-index: 3;
+}
+
+nav {
+    margin-top: 100px;
+}
+
+footer {
+    background: #222;
+    grid-area: bottom;
+}
+
+
+/***************************/
+/* Accessories & Florishes */
+/***************************/
+::-webkit-scrollbar {
+    width: 16px;
+}
+
+::-webkit-scrollbar-thumb {
+    border: 4px solid transparent;
+    border-radius: 16px;
+    background-clip: padding-box;
+    min-height: 30px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: hsla(0,0%,100%,.3);
+}
+
+/***************************/
+/* Part A: Left Navigation */
+/***************************/
+
+#sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+}
+
+#sidebar a {
+    width: 100%;
+    margin: 10px;
+    filter: brightness(80%);
+}
+
+#sidebar a i {
+    padding: 10px;
+    font-size: larger;
+}
+
+#sidebar a:hover {
+    filter: brightness(100%);
+}
+
+#sidebar h1 {
+    font-size: xx-large;
+}
+
+.selected1 {
+    border-left: solid;
+    border-left-color: green;
+    border-left-width: 3px;
+}
+
+
+/********************************/
+/* Part B: Header & Nav Styling */
+/********************************/
+
+header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+#upgrade {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border: solid #fff 1px;
+    border-radius: 500px;
+    margin: 10px;
+    text-transform: uppercase;
+    font-size: medium;
+    justify-content: center;
+    align-items: center;
+    filter: brightness(80%);
+}
+
+#profile {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    background-color: #333;
+    border: solid #333 1px;
+    border-radius: 500px;
+    margin: 10px;
+    text-transform: uppercase;
+    font-size: medium;
+    justify-content: center;
+    align-items: center;
+    filter: brightness(80%);
+}
+
+#upgrade:hover {
+    filter: brightness(500%);
+}
+
+#profile:hover {
+    filter: brightness(120%);
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+nav a {
+    padding-right: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 10px;
+    text-transform: uppercase;
+    font-size: medium;
+    justify-content: center;
+    align-items: center;
+}
+
+nav a:hover {
+    text-decoration-line: underline;
+    text-decoration-color: green;
+    text-decoration-style: solid;
+    text-decoration-thickness: 3px;
+    text-underline-position: under;
+}
+
+.selected2 {
+    text-decoration-line: underline;
+    text-decoration-color: green;
+    text-decoration-style: solid;
+    text-decoration-thickness: 3px;
+    text-underline-position: under;
+}
+
+
+/*************************/
+/* Part C: Artists Panel */
+/*************************/
+
+#featured-content {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.artist-card {
+    background-color: #333;
+    border: solid #333 1px;
+    border-radius: 5px;
+    width: calc(20% - 20px);
+    height: 300px;
+    padding: 20px;
+    margin: 10px;
+}
+
+.artist-card img {
+    background-size: cover;
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+}
+
+.artist-card h3 {
+    font-size: medium;
+    padding-bottom: 0px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#chancetherapper {
+    font-size: 14px;
+}
+
+.artist-card p {
+    font-size: small;
+    padding-top: 0px;
+    margin-top: 0px;
+    margin-bottom: -15px;
+}
+
+.play-button {
+    display: none;
+}
+
+.artist-card:hover .play-button {
+    display: block;
+    width: 20%;
+    float: right;
+    height: auto;
+    margin: 10px;
+}
+
+.artist-card:hover .play-button i {
+    border-spacing: solid 1px green;
+    background-color: green;
+    border-radius: 200px;
+    padding: 15px;
+}
+
+/**************************/
+/* Part D: Responsive UIs */
+/**************************/
+
+@media screen and (max-width: 1200px) {
+    .artist-card {
+        width: calc(33.33% - 20px);
+    }
+}
+
+@media screen and (max-width:900px) {
+    .artist-card {
+        width: calc(50% - 20px);
+    }
+
+    #sidebar {
+        display: none;
+    }
+
+    #upgrade {
+        display: none;
+    }
+
+    body {
+        overflow: hidden;
+        margin: 0px;
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: auto 100px;
+        grid-template-areas:
+           "main"
+           "bottom";
+        height: 100vh;
+    }
+    
+    header {
+        background: #111;
+        position: fixed;
+        width: calc(100vw - 250px);
+        left: 250px;
+    }
+    
+    main {
+        background: #111;
+        grid-area: main;
+        min-height: calc(350px);
+        max-height: calc(100vh - 100px);
+        overflow-y: auto;
+        z-index: 3;
+    }
+    
+    footer {
+        background: #222;
+        grid-area: bottom;
+    }
+}
