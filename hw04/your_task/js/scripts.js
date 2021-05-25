@@ -16,6 +16,21 @@ const search = (ev) => {
     }
 }
 
+const playTrack = (ev) => {
+    console.log(ev.currentTarget);
+    const elem = ev.currentTarget;
+    const previewURL = elem.dataset.previewTrack;
+    console.log(previewURL);
+    if (previewURL != "null") {
+        audioPlayer.setAudioFile(previewURL);
+        audioPlayer.play();
+        document.querySelector('footer .track-item').innerHTML = elem.innerHTML;
+    }
+    else {
+       document.querySelector('footer .track-item').innerHTML = 'There is no preview available for this track.';
+    }
+}
+
 const getTracks = (term) => {
     const q = document.querySelector('#search').value
     let url = `https://www.apitutor.org/spotify/simple/v1/search?type=track&q=${q}&limit=5`
@@ -25,36 +40,65 @@ const getTracks = (term) => {
         })
         .then (tracks => {
             console.log(tracks);
-            document.querySelector('.track-item').innerHTML = "";
+            document.querySelector('#track-section').innerHTML = '<h1>Songs</h1>';
             if (tracks.length !== 0){
                 for (const track of tracks) {
                     console.log(track.name);
-                    document.querySelector('.track-item').innerHTML +=
-                    `<div> 
-                        <section class="track-item preview"
-                        data-preview-track="${track.preview_url}">
+                    document.querySelector('#track-section').innerHTML +=
+                    `<section class="track-item preview"
+                        data-preview-track="${track.preview_url}" onclick="playTrack(event)";>
                         <img src="${track.album.image_url}">
                         <i class="fas play-track fa-play" aria-hidden="true"></i>
                     <div class="label">
                     <h3>${track.name}</h3>
                     <p>${track.artist.name}</p>
                     </div>
-                    </section>
-                    </div>`;
+                    </section>`;
                 }
+
+                // const trackElements = document.querySelectorAll('.track-item.preview');
+                //     for (const elem of trackElements) {
+                //         elem.onclick = playTracks;
+                //     }
             }
             else {
-                document.querySelector('.track-item').innerHTML = "<p>No tracks found that match your search criteria.</p>"
+                document.querySelector('#track-section').innerHTML = "<p>No tracks found that match your search criteria.</p>"
             }
         });
 };
 
 
 const getAlbums = (term) => {
-    console.log(`
-        get albums from spotify based on the search term
-        "${term}" and load them into the #albums section 
-        of the DOM...`);
+    const q = document.querySelector('#search').value
+    let url = `https://www.apitutor.org/spotify/simple/v1/search?type=album&q=${q}`
+    fetch(url)
+        .then((response) => {
+            return response.json();
+        })
+        .then (albums => {
+            console.log(albums);
+            document.querySelector('#albums').innerHTML = "";
+            if (albums.length !== 0){
+                for (const album of albums) {
+                    console.log(album.name);
+                    document.querySelector('#albums').innerHTML +=
+                    `<section class="album-card" id="${track.id}">
+                    <div>
+                        <img src="${album.image_url}">
+                        <h3>${album.name}</h3>
+                        <div class="footer">
+                            <a href="${album.spotify_url}" target="_blank">
+                                View on Spotify
+                            </a>
+                        </div>
+                    </div>
+                </section>`;
+                }
+            }
+            else {
+                document.querySelector('#albums').innerHTML = "<p>No albums found that match your search criteria.</p>"
+            }
+        });
 };
 
 const getArtist = (term) => {
@@ -87,6 +131,14 @@ const getArtist = (term) => {
             }
         });
 };
+
+// const playTracks = (ev) => {
+//     const elem = ev.currentTarget;
+//     const preview_url = String(elem.dataset.index);
+//     document.querySelector('#track').src = preview_url
+//     audioPlayer.setAudioFile(preview_url);
+//     audioPlayer.play();
+// }
 
 document.querySelector('#search').onkeyup = (ev) => {
     // Number 13 is the "Enter" key on the keyboard
